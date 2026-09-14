@@ -6,8 +6,14 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Run Feed Generator
         uses: RajeevSivarasasingam/podcast-generator@main
-        with:
-          skip-services: "true"
-          python-packages-from: "pip"
+      - name: Push Changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git fetch origin main
+          git rebase origin/main
+          git push origin main
