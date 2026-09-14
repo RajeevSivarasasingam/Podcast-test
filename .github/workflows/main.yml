@@ -12,9 +12,16 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+      - name: Run Feed Generator
+        uses: RajeevSivarasasingam/podcast-generator@main
       - name: Fetch Latest Changes
         run: git fetch origin main
       - name: Rebase if Needed
         run: git rebase origin/main || true
-      - name: Run Feed Generator
-        uses: RajeevSivarasasingam/podcast-generator@main
+      - name: Push Changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git push origin main
+          else
+            echo "No changes to push"
+          fi
