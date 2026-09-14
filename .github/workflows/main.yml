@@ -8,6 +8,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Run Feed Generator
         uses: RajeevSivarasasingam/podcast-generator@main
-        
-        
-      
+        with:
+          skip-services: "true"
+          python-packages-from: "pip"
